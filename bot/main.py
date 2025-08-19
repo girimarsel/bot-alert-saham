@@ -154,8 +154,10 @@ def scrape():
                     continue
                 tnorm = title.lower()
                 if any(k in tnorm for k in KEYWORDS):
-                    if href.startswith("/"):
-                        href = urljoin(src, href)
+                    # Normalisasi semua href non-absolute:
+# contoh: "/path", "newsDetail.php?..." → jadi full URL berdasarkan sumber
+if not href.lower().startswith(("http://", "https://")):
+    href = urljoin(src, href)
                     found.append((title, href))
         except Exception as e:
             print("Scrape error:", src, "-", e)
