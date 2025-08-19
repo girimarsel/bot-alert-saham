@@ -1,6 +1,8 @@
 name: Bot Alert Saham
 name: Bot Alert Saham
 
+on:name: Bot Alert Saham
+
 on:
   schedule:
     - cron: "0 * * * *"       # jalan tiap 1 jam (menit ke-00)
