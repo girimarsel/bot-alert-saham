@@ -167,10 +167,15 @@ def escape_html_title(s: str) -> str:
 def format_messages(items):
     now = datetime.now(timezone.utc).astimezone().strftime("%d %b %Y %H:%M")
     lines = [f"📣 <b>ALERT SAHAM – Akuisisi / MTO / Rights Issue</b>\n🕒 {now}"]
-    for title, url in items[:8]:  # maks 8 item per run
-        dom = domain_of(url)
+    for title, url in items[:8]:
+        dom = domain_of(url) or "sumber"
         safe_title = escape_html_title(title)
-        lines.append(f"• <b>{safe_title}</b>\n  🔗 {url}  <i>(sumber: {dom})</i>")
+        safe_url = html_escape(url, quote=True)
+        # Link pendek: “Baca di {domain}”
+        lines.append(
+            f"• <b>{safe_title}</b>\n"
+            f"  📎 <a href=\"{safe_url}\">Baca di {dom}</a>"
+        )
     return "\n\n".join(lines)
 
 # ---------- Main ----------
