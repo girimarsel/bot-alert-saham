@@ -69,6 +69,9 @@ def scrape():
     return found
 
 def main():
+    # 1) Kirim pesan test setiap run (cek koneksi)
+    send_telegram("✅ Bot Alert Saham aktif. Cek berita akuisisi/MTO sekarang...")
+
     sent = load_sent()
     new_items = []
     for title, url in scrape():
@@ -77,14 +80,14 @@ def main():
             new_items.append((title, url))
             sent.add(key)
 
+    # 2) Kalau ada berita baru → kirim
     if new_items:
-        # Gabung jadi satu pesan (maks 5 item biar ringkas)
         chunk = new_items[:5]
-        msg_lines = ["[ALERT SAHAM – Akuisisi/MTO]"]
+        msg_lines = ["📢 [ALERT SAHAM – Akuisisi/MTO]"]
         for t, u in chunk:
             msg_lines.append(f"• {t}\n{u}")
         send_telegram("\n\n".join(msg_lines))
         save_sent(sent)
-
-if __name__ == "__main__":
-    main()
+    else:
+        # 3) Kalau belum ada yang match, kirim info ringan (biar tahu bot jalan)
+        send_telegram("ℹ️ Belum ada berita baru yang cocok keyword.")
