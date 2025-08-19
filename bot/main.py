@@ -148,17 +148,19 @@ def scrape():
             r.raise_for_status()
             soup = BeautifulSoup(r.text, "html.parser")
             for a in soup.find_all("a"):
-                title = norm(a.get_text() or "")
-                href = (a.get("href") or "").strip()
-                if not title or not href:
-                    continue
-                tnorm = title.lower()
-                if any(k in tnorm for k in KEYWORDS):
-                    # Normalisasi semua href non-absolute:
-# contoh: "/path", "newsDetail.php?..." → jadi full URL berdasarkan sumber
-if not href.lower().startswith(("http://", "https://")):
-    href = urljoin(src, href)
-                    found.append((title, href))
+    title = norm(a.get_text() or "")
+    href = (a.get("href") or "").strip()
+    if not title or not href:
+        continue
+
+    tnorm = title.lower()
+    if any(k in tnorm for k in KEYWORDS):
+        # Normalisasi semua href non-absolute:
+        # contoh "/path", "newsDetail.php?..." → jadi full URL berdasar sumber
+        if not href.lower().startswith(("http://", "https://")):
+            href = urljoin(src, href)
+
+        found.append((title, href))
         except Exception as e:
             print("Scrape error:", src, "-", e)
     return found
