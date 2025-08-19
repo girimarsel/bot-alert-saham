@@ -1,12 +1,13 @@
 name: Bot Alert Saham
+name: Bot Alert Saham
 
 on:
   schedule:
-    - cron: "0 * * * *"       # jalan tiap 1 jam, menit ke-00
+    - cron: "0 * * * *"       # jalan tiap 1 jam (menit ke-00)
   workflow_dispatch: {}
 
 permissions:
-  contents: write             # perlu untuk commit cache
+  contents: write             # boleh commit cache
 
 jobs:
   run-bot:
