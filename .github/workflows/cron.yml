@@ -1,15 +1,12 @@
 name: Bot Alert Saham
-name: Bot Alert Saham
-
-on:name: Bot Alert Saham
 
 on:
   schedule:
-    - cron: "0 * * * *"       # jalan tiap 1 jam (menit ke-00)
-  workflow_dispatch: {}
+    - cron: '0 * * * *'   # jalan tiap 1 jam (menit ke-00)
+  workflow_dispatch:
 
 permissions:
-  contents: write             # boleh commit cache
+  contents: write
 
 jobs:
   run-bot:
@@ -21,7 +18,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install deps
         run: |
@@ -32,8 +29,7 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          python bot/main.py
+        run: python bot/main.py
 
       - name: Commit cache (sent.json)
         run: |
