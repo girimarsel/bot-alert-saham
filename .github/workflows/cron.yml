@@ -2,7 +2,7 @@ name: Bot Alert Saham
 
 on:
   schedule:
-    - cron: '0 * * * *'   # jalan tiap 1 jam (menit ke-00)
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
