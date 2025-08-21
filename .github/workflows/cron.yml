@@ -2,10 +2,10 @@ name: Bot Alert Saham
 on:
   schedule:
     - cron: "*/10 * * * *"   # jalan tiap 10 menit
-  workflow_dispatch: {}      # bisa run manual
+  workflow_dispatch: {}
 
 permissions:
-  contents: write            # biar bisa commit sent_items.json
+  contents: write
 
 concurrency:
   group: news-bot
