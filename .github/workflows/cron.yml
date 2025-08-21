@@ -1,7 +1,7 @@
 name: Bot Alert Saham
 on:
   schedule:
-    - cron: "*/10 * * * *"   # tiap 10 menit
+    - cron: "*/10 * * * *"   # jalan tiap 10 menit
   workflow_dispatch: {}      # bisa run manual
 
 permissions:
